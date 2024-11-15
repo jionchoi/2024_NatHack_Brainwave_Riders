@@ -70,7 +70,7 @@ option = st.selectbox(
 
 #Music Playing
 st.session_state.keep_playing = True
-freq = 1
+FREQ = 1
 
 #function for reading the file and return user's current emotion
 def read_emotion():
@@ -80,25 +80,38 @@ def read_emotion():
     if number < 4:
         current_emotion= "negative"
     elif number > 7:
-        current_emotion= "positvie"
+        current_emotion= "positive"
     else:
         current_emotion= "neutral"
 
     return current_emotion
 
 def change_frequency(container, current_emotion):
+    music_freq = 1
+
     if container == Caregiving:
         if current_emotion == "neutral":
-            music_freq = freq/2
+            music_freq = FREQ/2
         elif current_emotion == "negative":
-            music_freq = freq/10
+            music_freq = FREQ/10
     #If self-assesment
     else:
         if current_emotion == "positive":
-            music_freq = freq/2
+            music_freq = FREQ/2
         elif current_emotion == "negative":
-            music_freq = freq*2
+            music_freq = FREQ*2
+
     return music_freq
+
+def change_emoji(image, current_emotion):
+    if current_emotion == "positive":
+        image.image(happy_image)
+    elif current_emotion == "neutral":
+        image.image(fear_image) #this should be neutral image
+    else:
+        image.image(anger_image)
+
+    return image
 
 def run_the_assesment(selected):
     #change the target based on the user's selection
@@ -112,120 +125,144 @@ def run_the_assesment(selected):
         st.warning("Please select one of the options", icon="⚠️")
         return
 
-    stop_button = st.button("Stop the assesment", key="stopp")
-    text = st.empty() #initialize text container
+    col3, col4, col5 = st.columns([1,1,2])
+    with col3: 
+        stop_button = st.button("Stop the assesment", key="stopp")
+    with col4: 
+        if st.button("Change music"):
+            music = st.file_uploader("Upload your audio file")
 
+    #I will use Javascript audio tag since it allows us to play/stop the music and change the speed of the music
+    st.markdown(f"""
+        <audio controls>
+            <source src="relaxing.mp3" type="audio/mp3>
+            Your browser does not support the audio element.
+        </audio>
+    """, unsafe_allow_html=True)
+
+    text = st.empty() #initialize text container
+    image = st.empty() #image container
+    
     #Loop until the user wants to stop the music
     while st.session_state.keep_playing == True:
         current_emotion = read_emotion()
+        col6, col7 = st.columns(2)
+        with col6:
+            change_emoji(image, current_emotion)
+        with col7: 
+            text.write(target + " current emotion is " + current_emotion)
         change_frequency(container, current_emotion)
-        text.write(target + " current emotion is " + current_emotion)
+
         if stop_button:
             st.session_state.keep_playing = False
+
     container.empty()
 
+#Few things to decide, are we going to change the music based on the emotion or only the freqency of the music. Or both. Is it even possible to change the frequence of the music?
+    
 #Initialize the user's currenet emotion
 current_emotion = read_emotion()
 
 #Start the assesment
 run_the_assesment(option)
-col3, col4 = st.columns(2)
 
-with col1:
-    emotion_images = {
-        "Sad": sad_image,
-        "Happy": happy_image,
-        "Anger": anger_image,
-        "Fear": fear_image,
-        "Sadness": sadness_image
-    }
-    st.image(emotion_images[st.session_state.current_emotion])
+# col3, col4 = st.columns(2)
 
-output = [1,1,0,0,1,1]
+# with col1:
+#     emotion_images = {
+#         "Sad": sad_image,
+#         "Happy": happy_image,
+#         "Anger": anger_image,
+#         "Fear": fear_image,
+#         "Sadness": sadness_image
+#     }
+#     st.image(emotion_images[st.session_state.current_emotion])
+
+# output = [1,1,0,0,1,1]
 
 
-with col2:
-    # if st.session_state.mode_index is None:
-        st.header("Select the work mode")
-        if st.button("Self-assesment") or st.session_state.mode_index == 0:
+# with col2:
+#     # if st.session_state.mode_index is None:
+#         st.header("Select the work mode")
+#         if st.button("Self-assesment") or st.session_state.mode_index == 0:
 
-            # =====================
-            st.session_state.mode_index = 0
-            st.session_state.music_playing = True  
-            # st.audio("./GUI/assets/relaxing.mp3", start_time=0, autoplay=True) 
-            while st.session_state.output_index < len(output):
-                current_output = output[st.session_state.output_index]
+#             # =====================
+#             st.session_state.mode_index = 0
+#             st.session_state.music_playing = True  
+#             # st.audio("./GUI/assets/relaxing.mp3", start_time=0, autoplay=True) 
+#             while st.session_state.output_index < len(output):
+#                 current_output = output[st.session_state.output_index]
 
-                # Play the corresponding music
-                if current_output == 1:
-                    st.audio(neutral_music, start_time=0, autoplay=True)
-                    st.write("Playing neutral music.")
-                elif current_output == 0:
-                    st.audio(happy_music, start_time=0, autoplay=True)
-                    st.write("Playing happy music.")
+#                 # Play the corresponding music
+#                 if current_output == 1:
+#                     st.audio(neutral_music, start_time=0, autoplay=True)
+#                     st.write("Playing neutral music.")
+#                 elif current_output == 0:
+#                     st.audio(happy_music, start_time=0, autoplay=True)
+#                     st.write("Playing happy music.")
                 
-                # Update the index and wait
-                st.session_state.output_index += 1
-                time.sleep(5)
-                st.rerun()
+#                 # Update the index and wait
+#                 st.session_state.output_index += 1
+#                 time.sleep(5)
+#                 st.rerun()
             
-            # st.audio(neutral_music, start_time=0)
-            # st.write("Playing music to cheer you up!")
-            # st.session_state.current_emotion = "Happy"
-            # st.session_state.final_decision_made = False
-            # st.session_state.mode_index = 0
+#             # st.audio(neutral_music, start_time=0)
+#             # st.write("Playing music to cheer you up!")
+#             # st.session_state.current_emotion = "Happy"
+#             # st.session_state.final_decision_made = False
+#             # st.session_state.mode_index = 0
             
-            # =====================
-            if st.button("Return to Home"):
-                st.session_state.question_index = None    
-                st.session_state.responses = [] 
-                st.session_state.mode_index = None
-            time.sleep(5)
-            st.rerun()    
+#             # =====================
+#             if st.button("Return to Home"):
+#                 st.session_state.question_index = None    
+#                 st.session_state.responses = [] 
+#                 st.session_state.mode_index = None
+#             time.sleep(5)
+#             st.rerun()    
 
-        elif st.button("Healthcare giver"):
-            st.session_state.question_index = 2
-            st.session_state.responses = []
-            st.session_state.final_decision_made = False
+#         elif st.button("Healthcare giver"):
+#             st.session_state.question_index = 2
+#             st.session_state.responses = []
+#             st.session_state.final_decision_made = False
 
-            if st.button("Return to Home"):
-                st.session_state.question_index = None    
-                st.session_state.responses = [] 
-                st.session_state.mode_index = None
+#             if st.button("Return to Home"):
+#                 st.session_state.question_index = None    
+#                 st.session_state.responses = [] 
+#                 st.session_state.mode_index = None
 
-    # elif st.session_state.question_index < len(clarification_questions):
-    #     current_question, emotion = clarification_questions[st.session_state.question_index]
-    #     st.header(current_question)
+#     # elif st.session_state.question_index < len(clarification_questions):
+#     #     current_question, emotion = clarification_questions[st.session_state.question_index]
+#     #     st.header(current_question)
 
-    #     # "Yes" and "No" buttons for answering the question
-    #     col_yes, col_no = st.columns(2)
-    #     with col_yes:
-    #         if st.button("Yes"):
-    #             st.session_state.responses.append(emotion)
-    #             st.session_state.question_index += 1
-    #             st.rerun()
+#     #     # "Yes" and "No" buttons for answering the question
+#     #     col_yes, col_no = st.columns(2)
+#     #     with col_yes:
+#     #         if st.button("Yes"):
+#     #             st.session_state.responses.append(emotion)
+#     #             st.session_state.question_index += 1
+#     #             st.rerun()
 
-    #     with col_no:
-    #         if st.button("No"):
-    #             st.session_state.responses.append(None)
-    #             st.session_state.question_index += 1
-    #             st.rerun()
+#     #     with col_no:
+#     #         if st.button("No"):
+#     #             st.session_state.responses.append(None)
+#     #             st.session_state.question_index += 1
+#     #             st.rerun()
 
-    # elif not st.session_state.final_decision_made:
-    #     emotion_count = {"Anger": 0, "Fear": 0, "Sadness": 0}
-    #     for response in st.session_state.responses:
-    #         if response:
-    #             emotion_count[response] += 1
+#     # elif not st.session_state.final_decision_made:
+#     #     emotion_count = {"Anger": 0, "Fear": 0, "Sadness": 0}
+#     #     for response in st.session_state.responses:
+#     #         if response:
+#     #             emotion_count[response] += 1
 
-    #     dominant_emotion = max(emotion_count, key=emotion_count.get)
-    #     st.session_state.current_emotion = dominant_emotion
-    #     st.session_state.final_decision_made = True
-    #     st.rerun()
+#     #     dominant_emotion = max(emotion_count, key=emotion_count.get)
+#     #     st.session_state.current_emotion = dominant_emotion
+#     #     st.session_state.final_decision_made = True
+#     #     st.rerun()
 
-    # if st.session_state.final_decision_made:
-    #     st.header(f"You are likely feeling: {st.session_state.current_emotion}")
-    #     if st.button("Return to Home"):
-    #         st.session_state.question_index = None
-    #         st.session_state.responses = []
-    #         st.session_state.current_emotion = "Sad"
-    #         st.session_state.final_decision_made = False
+#     # if st.session_state.final_decision_made:
+#     #     st.header(f"You are likely feeling: {st.session_state.current_emotion}")
+#     #     if st.button("Return to Home"):
+#     #         st.session_state.question_index = None
+#     #         st.session_state.responses = []
+#     #         st.session_state.current_emotion = "Sad"
+#     #         st.session_state.final_decision_made = False
