@@ -3,7 +3,7 @@ from PIL import Image
 import time
 
 # Set the title of the app
-st.title("System to detect Personality mood based on EEG sygnals")
+st.title("System to detect Personality mood based on EEG signals")
 
 # Load the images
 sad_image = Image.open("assets/sad.png")
