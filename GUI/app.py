@@ -6,11 +6,11 @@ import time
 st.title("System to detect Personality mood based on EEG signals")
 
 # Load the images
-sad_image = Image.open("sad.png")
-happy_image = Image.open("happy.png")
-anger_image = Image.open("angry.png")
-fear_image = Image.open("fear.png")
-sadness_image = Image.open("Sadness.png")
+sad_image = Image.open("assets/sad.png")
+happy_image = Image.open("assets/happy.png")
+anger_image = Image.open("assets/angry.png")
+fear_image = Image.open("assets/fear.png")
+sadness_image = Image.open("assets/Sadness.png")
 
 col1, col2 = st.columns(2)
 # Create a toggle state to switch images
