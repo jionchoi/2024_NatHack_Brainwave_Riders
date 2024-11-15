@@ -1,10 +1,22 @@
 import streamlit as st
 from PIL import Image
 import time
+import random #for the random number generator (testing purpose)
 st.title("System to Detect Personality Mood Based on EEG Signals")
 
-# user = "old"
-user = "new"
+
+#placeholder
+title = st.empty()
+user_prompt = st.empty()
+Self_assesment = st.empty()
+Caregiving = st.empty()
+
+#I need to change it back to new version
+user = "old"
+# user = "new"
+
+#TO-DO: 
+#Add play/stop button for the music in case the user wants to stop listening to the music
 
 if user == "old":
     sad_image = Image.open("./assets/sad.png")
@@ -48,6 +60,76 @@ if 'output_index' not in st.session_state:
 #     ("Do you feel a lack of motivation?", "Anger"),
 #     ("Are you experiencing physical discomfort (e.g., headache)?", "Anger")
 # ]
+
+st.header("What are you using this application for?")
+option = st.selectbox(
+    "",
+    ["", "Caregiving", "Self-assesment"],
+    key="selected"
+)
+
+#Music Playing
+st.session_state.keep_playing = True
+freq = 1
+
+#function for reading the file and return user's current emotion
+def read_emotion():
+    current_emotion = ""
+    time.sleep(1)
+    number = random.randrange(1,10)
+    if number < 4:
+        current_emotion= "negative"
+    elif number > 7:
+        current_emotion= "positvie"
+    else:
+        current_emotion= "neutral"
+
+    return current_emotion
+
+def change_frequency(container, current_emotion):
+    if container == Caregiving:
+        if current_emotion == "neutral":
+            music_freq = freq/2
+        elif current_emotion == "negative":
+            music_freq = freq/10
+    #If self-assesment
+    else:
+        if current_emotion == "positive":
+            music_freq = freq/2
+        elif current_emotion == "negative":
+            music_freq = freq*2
+    return music_freq
+
+def run_the_assesment(selected):
+    #change the target based on the user's selection
+    if selected == "Caregiving":
+        target = "Your patient's"
+        container = Caregiving
+    elif selected == "Self-assesment":
+        target = "Your"
+        container = Self_assesment
+    else:
+        st.warning("Please select one of the options", icon="⚠️")
+        return
+
+    stop_button = st.button("Stop the assesment", key="stopp")
+    text = st.empty() #initialize text container
+
+    #Loop until the user wants to stop the music
+    while st.session_state.keep_playing == True:
+        current_emotion = read_emotion()
+        change_frequency(container, current_emotion)
+        text.write(target + " current emotion is " + current_emotion)
+        if stop_button:
+            st.session_state.keep_playing = False
+    container.empty()
+
+#Initialize the user's currenet emotion
+current_emotion = read_emotion()
+
+#Start the assesment
+run_the_assesment(option)
+col3, col4 = st.columns(2)
 
 with col1:
     emotion_images = {
@@ -100,10 +182,6 @@ with col2:
                 st.session_state.mode_index = None
             time.sleep(5)
             st.rerun()    
-
-
-
-
 
         elif st.button("Healthcare giver"):
             st.session_state.question_index = 2
