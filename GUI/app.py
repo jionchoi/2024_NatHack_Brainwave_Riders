@@ -4,11 +4,11 @@ from PIL import Image
 st.title("System to Detect Personality Mood Based on EEG Signals")
 
 # Load the images
-sad_image = Image.open("/GUI/assets/sad.png")
-happy_image = Image.open("/GUI/assets/happy.png")
-anger_image = Image.open("/GUI/assets/angry.png")
-fear_image = Image.open("/GUI/assets/fear.png")
-sadness_image = Image.open("/GUI/assets/Sadness.png")
+sad_image = Image.open("./GUI/assets/sad.png")
+happy_image = Image.open("./GUI/assets/happy.png")
+anger_image = Image.open("./GUI/assets/angry.png")
+fear_image = Image.open("./GUI/assets/fear.png")
+sadness_image = Image.open("./GUI/assets/Sadness.png")
 
 col1, col2 = st.columns(2)
 
