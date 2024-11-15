@@ -40,7 +40,7 @@ with col1:
         "Fear": fear_image,
         "Sadness": sadness_image
     }
-    st.image(emotion_images[st.session_state.current_emotion], use_column_width=True)
+    st.image(emotion_images[st.session_state.current_emotion])
 
 
 with col2:
