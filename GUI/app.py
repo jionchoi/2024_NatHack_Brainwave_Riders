@@ -3,8 +3,8 @@ from PIL import Image
 import time
 st.title("System to Detect Personality Mood Based on EEG Signals")
 
-user = "old"
-# user = "new"
+# user = "old"
+user = "new"
 
 if user == "old":
     sad_image = Image.open("./assets/sad.png")
