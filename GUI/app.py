@@ -4,11 +4,11 @@ import time
 st.title("System to Detect Personality Mood Based on EEG Signals")
 
 # Load the images
-sad_image = Image.open("sad.png")
-happy_image = Image.open("happy.png")
-anger_image = Image.open("angry.png")
-fear_image = Image.open("fear.png")
-sadness_image = Image.open("Sadness.png")
+sad_image = Image.open("./GUI/assets/sad.png")
+happy_image = Image.open("./GUI/assets/happy.png")
+anger_image = Image.open("./GUI/assets/angry.png")
+fear_image = Image.open("./GUI/assets/fear.png")
+sadness_image = Image.open("./GUI/assets/Sadness.png")
 
 col1, col2 = st.columns(2)
 
@@ -40,7 +40,7 @@ with col1:
         "Fear": fear_image,
         "Sadness": sadness_image
     }
-    st.image(emotion_images[st.session_state.current_emotion], use_column_width=True)
+    st.image(emotion_images[st.session_state.current_emotion])
 
 
 with col2:
