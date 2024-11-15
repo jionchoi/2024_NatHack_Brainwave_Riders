@@ -1,6 +1,6 @@
 import streamlit as st
 from PIL import Image
-
+import time
 st.title("System to Detect Personality Mood Based on EEG Signals")
 
 # Load the images
@@ -40,16 +40,24 @@ with col1:
         "Fear": fear_image,
         "Sadness": sadness_image
     }
-    st.image(emotion_images[st.session_state.current_emotion], use_container_width=True)
+    st.image(emotion_images[st.session_state.current_emotion], use_column_width=True)
 
 
 with col2:
     if st.session_state.question_index is None:
         st.header("How can I help you?")
         if st.button("Play music"):
+            st.session_state.music_playing = True  
+            st.audio("relaxing.mp3", start_time=0, autoplay=True) 
             st.write("Playing music to cheer you up!")
             st.session_state.current_emotion = "Happy"
             st.session_state.final_decision_made = False
+            time.sleep(5)
+            st.rerun()
+
+            if st.button("Return to Home"):
+                st.session_state.question_index = None    
+                st.session_state.responses = [] 
 
         elif st.button("Clarify my emotional state"):
             st.session_state.question_index = 0
