@@ -48,7 +48,7 @@ with col2:
         st.header("How can I help you?")
         if st.button("Play music"):
             st.session_state.music_playing = True  
-            st.audio("relaxing.mp3", start_time=0, autoplay=True) 
+            st.audio("./GUI/assets/relaxing.mp3", start_time=0, autoplay=True) 
             st.write("Playing music to cheer you up!")
             st.session_state.current_emotion = "Happy"
             st.session_state.final_decision_made = False
