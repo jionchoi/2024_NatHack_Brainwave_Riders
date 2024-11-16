@@ -183,5 +183,4 @@ if option is not "":
     with col3:
         if st.button("Start the assesment", key="start"):
             with col6:
-                
                 run_the_assesment(option)
