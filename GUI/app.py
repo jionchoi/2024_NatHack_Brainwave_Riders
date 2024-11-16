@@ -1,3 +1,4 @@
+import pandas as pd
 import streamlit as st
 from PIL import Image
 import time
@@ -29,11 +30,11 @@ if user == "old":
     happy_music = "./assets/happy.mp3"
 
 if user == "new":
-    sad_image = Image.open("./GUI/assets/sad.png")
+    # sad_image = Image.open("./GUI/assets/sad.png")
     happy_image = Image.open("./GUI/assets/happy.png")
     anger_image = Image.open("./GUI/assets/angry.png")
     neutral_image = Image.open("./GUI/assets/neutral.png")
-    sadness_image = Image.open("./GUI/assets/Sadness.png")
+    # sadness_image = Image.open("./GUI/assets/Sadness.png")
     neutral_music = "./GUI//assets/relaxing.mp3"
     happy_music = "./GUI//assets/happy.mp3"
 
@@ -49,7 +50,7 @@ st.session_state.keep_playing = True
 FREQ = 1
 
 #function for reading the file and return user's current emotion
-def read_emotion():
+def read_emotion(csv_path="GUI/predicted_labels.csv"):
     current_emotion = ""
     time.sleep(4)
     number = random.randrange(1,10)
@@ -86,12 +87,14 @@ def change_frequency(container, current_emotion):
     html(html_code)
     return music_freq
 
+
+
 def change_emoji(image, current_emotion):
     if current_emotion == "positive":
         image.image(happy_image)
 
     elif current_emotion == "neutral":
-        image.image(neutral_image) #this should be neutral image
+        image.image(fear_image) #this should be neutral image
     else:
         image.image(anger_image)
 
@@ -107,6 +110,19 @@ def autoplay_audio(file_path: str):
             </audio>
             """
         st.markdown(md, unsafe_allow_html=True)
+
+def read_csv_label(csv_path):
+    """
+    Reads the first label from a .csv file, handles scientific notation, and ensures it's an integer.
+    """
+    try:
+        df = pd.read_csv(csv_path)
+        # Convert the first label to float, then to integer
+        label = int(float(df.iloc[0, 0]))
+        return label
+    except Exception as e:
+        st.error(f"Error reading .csv file: {e}")
+        return None
 
 def run_the_assesment(selected):
     #change the target based on the user's selection
