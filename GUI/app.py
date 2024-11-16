@@ -16,8 +16,8 @@ Self_assesment = st.empty()
 Caregiving = st.empty()
 
 #I need to change it back to new version
-user = "old"
-# user = "new"
+# user = "old"
+user = "new"
 
 #TO-DO: 
 #Add play/stop button for the music in case the user wants to stop listening to the music
