@@ -1,9 +1,11 @@
 
-# **EmoCare**  🫶 🧠 🤯 🎼 
+# **EmoNeuro**  🫶 🧠 🤯 🎼 
 **Bridge the Silence: an EEG-Based Emotional Assessment and Music Generation Platform**
 
 To explore EmoCare and experience the platform's capabilities, visit our Streamlit app:
-👉 [EmoCare](http://brainwaveriders.streamlit.app)
+👉 [EmoNeuro](http://brainwaveriders.streamlit.app)
+<img width="636" alt="Icon" src="https://github.com/user-attachments/assets/f6e5995e-ec9b-4ea6-8851-c739b9d122ef">
+
 
 ## **Overview**
 EmoCare is an innovative platform developed by team Brainwave Riders during **natHACKS 2024** in Edmonton, Alberta, Canada. The platform is designed to detect users’ emotional state through real-time EEG data and provide adaptive personalized music. By combining advanced machine learning techniques, real-time data streaming, and intuitive user interfaces, EmoCare recognize and regulate emotions to bridge the gap between non-communicative individuals and their care providers as well as for self-assess emotions in healthy subjects.
@@ -62,9 +64,11 @@ The repository contains three primary components:
 ---
 
 ## **Current Implementation**
-- **Data Acquisition**: EEG signals are recorded using Muse 2.  
+- **Data Acquisition**: EEG signals are recorded using Muse 2.
+<img width="636" alt="Feature_extraction" src="https://github.com/user-attachments/assets/b9459b70-bbd8-4d70-87be-b35ff44e0c3b">
+
 - **Music Generation**: A baseline music segment is modified based on emotional goals. For example:
-  - Amplifying certain frequency bands can evoke or regulate specific emotions.  
+  - Amplifying certain frequency bands can evoke or regulate specific emotions.
 
 ---
 
@@ -78,5 +82,5 @@ The repository contains three primary components:
 ## **Contributors**
 Developed by **Team Brainwave Riders** during natHACKS 2024.  
 
-For access our user friendly interface, please refer to:
+To access our user friendly interface, please refer to:
 http://brainwaveriders.streamlit.app
