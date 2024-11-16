@@ -2,7 +2,7 @@ from brainflow.board_shim import BoardShim, BrainFlowInputParams, BoardIds
 from brainflow.data_filter import DataFilter, FilterTypes
 import numpy as np
 import time
-from helper import process_eeg_data
+from EmotionDetectionPipeline.helper import process_eeg_data
 import pandas as pd
 
 def collect_eeg_data(
