@@ -1,2 +1,5 @@
-# 2024_NatHack_Brainwave_Riders
+# EmoNeuro
+
+
+For access our user friendly interface, please refer to:
 http://brainwaveriders.streamlit.app
