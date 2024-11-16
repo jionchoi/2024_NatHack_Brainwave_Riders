@@ -49,19 +49,31 @@ option = st.selectbox(
 st.session_state.keep_playing = True
 FREQ = 1
 
-#function for reading the file and return user's current emotion
-def read_emotion(csv_path="GUI/predicted_labels.csv"):
-    current_emotion = ""
-    time.sleep(4)
-    number = random.randrange(1,10)
-    if number < 4:
-        current_emotion= "negative"
-    elif number > 7:
-        current_emotion= "positive"
-    else:
-        current_emotion= "neutral"
 
-    return current_emotion
+#function for reading the file and return user's current emotion
+def read_emotion():
+    csv_path = "EmotionDetectionPipeline/data/predicted_labels.csv"
+    while True:
+        df = pd.read_csv(csv_path, header=None)
+        label = int(float(df.iloc[0, 0]))
+        if label == 0:
+            return "negative"
+        elif label == 1:
+            return "neutral"
+        elif label == 2:
+            return "positive"
+        else:
+            return "neutral"
+        # current_emotion = ""
+    # time.sleep(4)
+    # number = random.randrange(1,10)
+    # if number < 4:
+    #     current_emotion= "negative"
+    # elif number > 7:
+    #     current_emotion= "positive"
+    # else:
+    #     current_emotion= "neutral"
+    # return current_emotion
 
 def change_frequency(container, current_emotion):
     music_freq = 1
@@ -88,13 +100,12 @@ def change_frequency(container, current_emotion):
     return music_freq
 
 
-
 def change_emoji(image, current_emotion):
     if current_emotion == "positive":
         image.image(happy_image)
 
     elif current_emotion == "neutral":
-        image.image(fear_image) #this should be neutral image
+        image.image(neutral_image) #this should be neutral image
     else:
         image.image(anger_image)
 
@@ -110,19 +121,6 @@ def autoplay_audio(file_path: str):
             </audio>
             """
         st.markdown(md, unsafe_allow_html=True)
-
-def read_csv_label(csv_path):
-    """
-    Reads the first label from a .csv file, handles scientific notation, and ensures it's an integer.
-    """
-    try:
-        df = pd.read_csv(csv_path)
-        # Convert the first label to float, then to integer
-        label = int(float(df.iloc[0, 0]))
-        return label
-    except Exception as e:
-        st.error(f"Error reading .csv file: {e}")
-        return None
 
 def run_the_assesment(selected):
     #change the target based on the user's selection
