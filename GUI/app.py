@@ -16,8 +16,8 @@ Self_assesment = st.empty()
 Caregiving = st.empty()
 
 #I need to change it back to new version
-user = "old"
-# user = "new"
+# user = "old"
+user = "new"
 
 if user == "old":
     sad_image = Image.open("./assets/sad.png")
@@ -36,23 +36,6 @@ if user == "new":
     sadness_image = Image.open("./GUI/assets/Sadness.png")
     neutral_music = "./GUI//assets/relaxing.mp3"
     happy_music = "./GUI//assets/happy.mp3"
-
-col1, col2 = st.columns(2)
-
-if 'current_emotion' not in st.session_state:
-    st.session_state.current_emotion = "Sad"
-
-if 'mode_index' not in st.session_state:
-    st.session_state.mode_index = None
-
-if 'responses' not in st.session_state:
-    st.session_state.responses = []
-
-if 'final_decision_made' not in st.session_state:
-    st.session_state.final_decision_made = False
-
-if 'output_index' not in st.session_state:
-    st.session_state.output_index = 0 
 
 st.header("What are you using this application for?")
 option = st.selectbox(
