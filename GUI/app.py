@@ -2,6 +2,8 @@ import streamlit as st
 from PIL import Image
 import time
 import random #for the random number generator (testing purpose)
+import base64 #for audio playing
+import streamlit.components.v1 as components
 st.title("System to Detect Personality Mood Based on EEG Signals")
 
 
@@ -12,8 +14,8 @@ Self_assesment = st.empty()
 Caregiving = st.empty()
 
 #I need to change it back to new version
-user = "old"
-# user = "new"
+# user = "old"
+user = "new"
 
 #TO-DO: 
 #Add play/stop button for the music in case the user wants to stop listening to the music
@@ -92,6 +94,12 @@ def change_frequency(container, current_emotion):
     if container == Caregiving:
         if current_emotion == "neutral":
             music_freq = FREQ/2
+            # st.markdown(f"""
+            #     <script>
+            #         myaudio = document.getElementById("audio1");
+            #         myaudio.playbackRate = {}
+            #     </script>
+            # """)
         elif current_emotion == "negative":
             music_freq = FREQ/10
     #If self-assesment
@@ -113,6 +121,20 @@ def change_emoji(image, current_emotion):
 
     return image
 
+def autoplay_audio(file_path: str):
+    with open(file_path, "rb") as f:
+        data = f.read()
+        b64 = base64.b64encode(data).decode()
+        md = f"""
+            <audio id='audio1' controls>
+                <source src="data:audio/mp3;base64,{b64}" type="audio/mp3">
+            </audio>
+            """
+        st.markdown(
+            md,
+            unsafe_allow_html=True,
+        )
+
 def run_the_assesment(selected):
     #change the target based on the user's selection
     if selected == "Caregiving":
@@ -133,16 +155,11 @@ def run_the_assesment(selected):
             music = st.file_uploader("Upload your audio file")
 
     #I will use Javascript audio tag since it allows us to play/stop the music and change the speed of the music
-    st.markdown(f"""
-        <audio controls>
-            <source src="relaxing.mp3" type="audio/mp3>
-            Your browser does not support the audio element.
-        </audio>
-    """, unsafe_allow_html=True)
+    autoplay_audio(neutral_music) #we shuold allow the user to pick whatever music they want to play
 
     text = st.empty() #initialize text container
     image = st.empty() #image container
-    
+
     #Loop until the user wants to stop the music
     while st.session_state.keep_playing == True:
         current_emotion = read_emotion()
@@ -150,11 +167,24 @@ def run_the_assesment(selected):
         with col6:
             change_emoji(image, current_emotion)
         with col7: 
-            text.write(target + " current emotion is " + current_emotion)
+            text.subheader(target + " current emotion is " + current_emotion)
         change_frequency(container, current_emotion)
 
         if stop_button:
             st.session_state.keep_playing = False
+            html_code = """
+                <p> Music is not playing </p>
+                <script> 
+                    var myaudio = document.getElementsByTagName("audio")[0];
+                   
+                     myaudio.pause();
+                      myaudio.currentTime = 0;  // Reset to beginning if you want
+                </script> 
+                """
+            components.html(
+
+                html_code, height=200
+            )
 
     container.empty()
 
