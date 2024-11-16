@@ -1,8 +1,8 @@
 import numpy as np
 import pickle
 from collections import Counter
-from DataStream import collect_eeg_data
-from DataPreprocessing import preprocess_eeg_data
+from EmotionDetectionPipeline.DataStream import collect_eeg_data
+from EmotionDetectionPipeline.DataPreprocessing import preprocess_eeg_data
 
 def main():
     try:

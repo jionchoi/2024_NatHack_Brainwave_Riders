@@ -6,11 +6,12 @@ import random #for the random number generator (testing purpose)
 import base64
 import streamlit.components.v1 as components
 from streamlit.components.v1 import html
-from ..EmotionDetectionPipeline.main import main
 import os
 
-st.title("System to Detect Personality Mood Based on EEG Signals")
+# Import the main function from main.py
+from EmotionDetectionPipeline.main import main
 
+st.title("System to Detect Personality Mood Based on EEG Signals")
 
 #placeholder
 title = st.empty()
@@ -54,14 +55,14 @@ st.session_state.running_assesment = False
 def read_emotion():
     base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-    csv_path = os.path.join(base_dir, 'EmotionDetectionPipeline', 'data', 'predicted_labels.csv')
+    csv_path = os.path.join(base_dir, '2024_NatHack_Brainwave_Riders', 'EmotionDetectionPipeline', 'data', 'predicted_labels.csv')
    
     # csv_path = "EmotionDetectionPipeline/data/predicted_labels.csv"
 
-    # while True:
-    time.sleep(3)
+    time.sleep(5) #time interval: every 5 seconds
     df = pd.read_csv(csv_path, header=None)
     label = int(float(df.iloc[0, 0]))
+
     if label == 0:
         return "negative"
     elif label == 1:
@@ -118,6 +119,11 @@ def autoplay_audio(file_path: str):
             """
         st.markdown(md, unsafe_allow_html=True)
 
+def donothing():
+    print()
+
+col3, col4, col5, col6 = st.columns([1,1,1,1])
+
 def run_the_assesment(selected):
     #change the target based on the user's selection
     if selected == "Caregiving":
@@ -130,10 +136,7 @@ def run_the_assesment(selected):
         st.warning("Please select one of the options", icon="⚠️")
         return
 
-    col3, col4, col5, col6 = st.columns([1,1,2])
 
-    with col3: 
-        start_button = st.button("Start the assesment", key="start")
     with col4: 
         stop_button = st.button("Stop the assesment", key="stop_music")
     with col5: 
@@ -145,10 +148,6 @@ def run_the_assesment(selected):
     
     text = st.empty() #initialize text container
     image = st.empty() #image container
-
-    if start_button:
-
-        st.write("Testing")
 
     #Loop until the user wants to stop the music
     while st.session_state.keep_playing == True:
@@ -167,7 +166,7 @@ def run_the_assesment(selected):
                 <script> 
                     var myaudio = window.parent.document.getElementById("audio1");
                     myaudio.pause();
-                    myaudio.currentTime = 0;  // Reset to beginning if you want
+                   // myaudio.currentTime = 0;  // Reset to beginning if you want
                 </script> 
                 """
             html(html_code)
@@ -177,5 +176,12 @@ def run_the_assesment(selected):
 #Initialize the user's currenet emotion
 current_emotion = read_emotion()
 
-#Start the assesment
-run_the_assesment(option)
+col6, col8 = st.columns([5, 1])
+
+if option is not "":
+    #Start the assesment
+    with col3:
+        if st.button("Start the assesment", key="start"):
+            with col6:
+                
+                run_the_assesment(option)
