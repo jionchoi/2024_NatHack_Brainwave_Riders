@@ -18,8 +18,8 @@ Self_assesment = st.empty()
 Caregiving = st.empty()
 
 #I need to change it back to new version
-user = "old"
-# user = "new"
+# user = "old"
+user = "new"
 
 if user == "old":
     sad_image = Image.open("./assets/sad.png")
