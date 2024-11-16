@@ -55,7 +55,7 @@ st.session_state.running_assesment = False
 def read_emotion():
     base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-    csv_path = os.path.join(base_dir, '2024_NatHack_Brainwave_Riders', 'EmotionDetectionPipeline', 'data', 'predicted_labels.csv')
+    csv_path = os.path.join(base_dir,'EmotionDetectionPipeline', 'data', 'predicted_labels.csv')
    
     # csv_path = "EmotionDetectionPipeline/data/predicted_labels.csv"
 
