@@ -22,21 +22,16 @@ Caregiving = st.empty()
 user = "new"
 
 if user == "old":
-    sad_image = Image.open("./assets/sad.png")
     happy_image = Image.open("./assets/happy.png")
-    anger_image = Image.open("./assets/angry.png")
-    # fear_image = Image.open("./assets/fear.png")
+    anger_image = Image.open("./assets/negative.png")
     neutral_image = Image.open("./assets/neutral.png")
-    sadness_image = Image.open("./assets/Sadness.png")
     neutral_music = "./assets/forest.mp3"
     happy_music = "./assets/happy.mp3"
 
 if user == "new":
-    # sad_image = Image.open("./GUI/assets/sad.png")
     happy_image = Image.open("./GUI/assets/happy.png")
-    anger_image = Image.open("./GUI/assets/angry.png")
+    anger_image = Image.open("./GUI/assets/negative.png")
     neutral_image = Image.open("./GUI/assets/neutral.png")
-    # sadness_image = Image.open("./GUI/assets/Sadness.png")
     neutral_music = "./GUI//assets/forest.mp3"
     happy_music = "./GUI//assets/happy.mp3"
 
@@ -72,16 +67,6 @@ def read_emotion():
         return "positive"
     else:
         return "neutral"
-        # current_emotion = ""
-    # time.sleep(4)
-    # number = random.randrange(1,10)
-    # if number < 4:
-    #     current_emotion= "negative"
-    # elif number > 7:
-    #     current_emotion= "positive"
-    # else:
-    #     current_emotion= "neutral"
-    # return current_emotion
 
 def change_frequency(container, current_emotion):
     music_freq = 1
