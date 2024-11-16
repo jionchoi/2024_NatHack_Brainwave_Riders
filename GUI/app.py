@@ -32,7 +32,7 @@ if user == "new":
     sad_image = Image.open("./GUI/assets/sad.png")
     happy_image = Image.open("./GUI/assets/happy.png")
     anger_image = Image.open("./GUI/assets/angry.png")
-    fear_image = Image.open("./GUI/assets/fear.png")
+    neutral_image = Image.open("./GUI/assets/neutral.png")
     sadness_image = Image.open("./GUI/assets/Sadness.png")
     neutral_music = "./GUI//assets/relaxing.mp3"
     happy_music = "./GUI//assets/happy.mp3"
@@ -91,7 +91,7 @@ def change_emoji(image, current_emotion):
         image.image(happy_image)
 
     elif current_emotion == "neutral":
-        image.image(fear_image) #this should be neutral image
+        image.image(neutral_image) #this should be neutral image
     else:
         image.image(anger_image)
 
