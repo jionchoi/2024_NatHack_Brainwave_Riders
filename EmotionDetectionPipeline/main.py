@@ -4,6 +4,7 @@ from collections import Counter
 from EmotionDetectionPipeline.DataStream import collect_eeg_data
 from EmotionDetectionPipeline.DataPreprocessing import preprocess_eeg_data
 
+
 def main():
     try:
         # EEG data collection
@@ -44,12 +45,14 @@ def main():
         label_counts = Counter(predicted_labels)
         most_common_label, count = label_counts.most_common(1)[0]
 
-        # Save predicted labels to a CSV file
-        np.savetxt("data/predicted_labels.csv", [most_common_label], delimiter=",", fmt='%f')
-        print("Predicted labels saved to 'data/predicted_labels.csv'")
+        # Output the predicted label
+        print(f"The predicted label is: {most_common_label}")
+        return most_common_label
 
     except RuntimeError as e:
         print(f"Process aborted: {str(e)}")
+        return None
+
 
 if __name__ == "__main__":
-    main()
+    predicted_label = main()
