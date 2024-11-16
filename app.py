@@ -53,15 +53,9 @@ st.session_state.running_assesment = False
 
 #function for reading the file and return user's current emotion
 def read_emotion():
-    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-    csv_path = os.path.join(base_dir,'EmotionDetectionPipeline', 'data', 'predicted_labels.csv')
-   
-    # csv_path = "EmotionDetectionPipeline/data/predicted_labels.csv"
-
+    label = main()
     time.sleep(5) #time interval: every 5 seconds
-    df = pd.read_csv(csv_path, header=None)
-    label = int(float(df.iloc[0, 0]))
 
     if label == 0:
         return "negative"
