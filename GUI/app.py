@@ -6,6 +6,7 @@ import random #for the random number generator (testing purpose)
 import base64
 import streamlit.components.v1 as components
 from streamlit.components.v1 import html
+from ..EmotionDetectionPipeline.main import main
 import os
 
 st.title("System to Detect Personality Mood Based on EEG Signals")
@@ -46,6 +47,8 @@ option = st.selectbox(
 st.session_state.keep_playing = True
 FREQ = 1
 
+#assesment
+st.session_state.running_assesment = False
 
 #function for reading the file and return user's current emotion
 def read_emotion():
@@ -127,19 +130,25 @@ def run_the_assesment(selected):
         st.warning("Please select one of the options", icon="⚠️")
         return
 
-    col3, col4, col5 = st.columns([1,1,2])
+    col3, col4, col5, col6 = st.columns([1,1,2])
 
     with col3: 
-        stop_button = st.button("Stop the assesment", key="stop_music")
+        start_button = st.button("Start the assesment", key="start")
     with col4: 
+        stop_button = st.button("Stop the assesment", key="stop_music")
+    with col5: 
         if st.button("Change music"):
-            music = st.file_uploader("Upload your audio file")
+            music = st.file_uploader("Upload your audio file", type="mp3")
 
     #I will use Javascript audio tag since it allows us to play/stop the music and change the speed of the music
     autoplay_audio(neutral_music) #we shuold allow the user to pick whatever music they want to play
-
+    
     text = st.empty() #initialize text container
     image = st.empty() #image container
+
+    if start_button:
+
+        st.write("Testing")
 
     #Loop until the user wants to stop the music
     while st.session_state.keep_playing == True:
@@ -153,6 +162,7 @@ def run_the_assesment(selected):
 
         if stop_button:
             st.session_state.keep_playing = False
+            st.session_state.running_assesment = False
             html_code = """
                 <script> 
                     var myaudio = window.parent.document.getElementById("audio1");
@@ -163,8 +173,6 @@ def run_the_assesment(selected):
             html(html_code)
 
     container.empty()
-
-#Few things to decide, are we going to change the music based on the emotion or only the freqency of the music. Or both. Is it even possible to change the frequence of the music?
     
 #Initialize the user's currenet emotion
 current_emotion = read_emotion()
