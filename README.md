@@ -1,12 +1,12 @@
 
-# **EmoCare**  🫶 🤯 🧠 🎼
+# **EmoCare**  🫶 🧠 🤯 🎼 
 **Bridge the Silence: an EEG-Based Emotional Assessment and Music Generation Platform**
 
 To explore EmoCare and experience the platform's capabilities, visit our Streamlit app:
 👉 [EmoCare](http://brainwaveriders.streamlit.app)
 
 ## **Overview**
-EmoCare is an innovative platform developed by team Brainwave Riders during **natHACKS 2024** in Edmonton, Alberta, Canada. The platform is designed to detect users’ emotional state through real-time EEG data and provide adaptive personalized music. By combining advanced machine learning techniques, real-time data streaming, and intuitive user interfaces, EmoCare recognize and regulateemotions to bridge the gap between non-communicative individuals and their care providers as well as for self-assess emotions in healthy subjects.
+EmoCare is an innovative platform developed by team Brainwave Riders during **natHACKS 2024** in Edmonton, Alberta, Canada. The platform is designed to detect users’ emotional state through real-time EEG data and provide adaptive personalized music. By combining advanced machine learning techniques, real-time data streaming, and intuitive user interfaces, EmoCare recognize and regulate emotions to bridge the gap between non-communicative individuals and their care providers as well as for self-assess emotions in healthy subjects.
 <img width="636" alt="Screenshot 2024-11-16 at 1 10 04 PM" src="https://github.com/user-attachments/assets/b309c170-23b3-4036-a13a-cac65f23fed7">
 
 ### **Key Features**
