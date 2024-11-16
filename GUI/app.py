@@ -6,6 +6,7 @@ import random #for the random number generator (testing purpose)
 import base64
 import streamlit.components.v1 as components
 from streamlit.components.v1 import html
+import os
 
 st.title("System to Detect Personality Mood Based on EEG Signals")
 
@@ -17,16 +18,17 @@ Self_assesment = st.empty()
 Caregiving = st.empty()
 
 #I need to change it back to new version
-# user = "old"
-user = "new"
+user = "old"
+# user = "new"
 
 if user == "old":
     sad_image = Image.open("./assets/sad.png")
     happy_image = Image.open("./assets/happy.png")
     anger_image = Image.open("./assets/angry.png")
-    fear_image = Image.open("./assets/fear.png")
+    # fear_image = Image.open("./assets/fear.png")
+    neutral_image = Image.open("./assets/neutral.png")
     sadness_image = Image.open("./assets/Sadness.png")
-    neutral_music = "./assets/relaxing.mp3"
+    neutral_music = "./assets/forest.mp3"
     happy_music = "./assets/happy.mp3"
 
 if user == "new":
@@ -35,7 +37,7 @@ if user == "new":
     anger_image = Image.open("./GUI/assets/angry.png")
     neutral_image = Image.open("./GUI/assets/neutral.png")
     # sadness_image = Image.open("./GUI/assets/Sadness.png")
-    neutral_music = "./GUI//assets/relaxing.mp3"
+    neutral_music = "./GUI//assets/forest.mp3"
     happy_music = "./GUI//assets/happy.mp3"
 
 st.header("What are you using this application for?")
@@ -52,18 +54,24 @@ FREQ = 1
 
 #function for reading the file and return user's current emotion
 def read_emotion():
-    csv_path = "EmotionDetectionPipeline/data/predicted_labels.csv"
-    while True:
-        df = pd.read_csv(csv_path, header=None)
-        label = int(float(df.iloc[0, 0]))
-        if label == 0:
-            return "negative"
-        elif label == 1:
-            return "neutral"
-        elif label == 2:
-            return "positive"
-        else:
-            return "neutral"
+    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+    csv_path = os.path.join(base_dir, 'EmotionDetectionPipeline', 'data', 'predicted_labels.csv')
+   
+    # csv_path = "EmotionDetectionPipeline/data/predicted_labels.csv"
+
+    # while True:
+    time.sleep(3)
+    df = pd.read_csv(csv_path, header=None)
+    label = int(float(df.iloc[0, 0]))
+    if label == 0:
+        return "negative"
+    elif label == 1:
+        return "neutral"
+    elif label == 2:
+        return "positive"
+    else:
+        return "neutral"
         # current_emotion = ""
     # time.sleep(4)
     # number = random.randrange(1,10)
