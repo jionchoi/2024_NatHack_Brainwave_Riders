@@ -2,8 +2,10 @@ import streamlit as st
 from PIL import Image
 import time
 import random #for the random number generator (testing purpose)
-import base64 #for audio playing
+import base64
 import streamlit.components.v1 as components
+from streamlit.components.v1 import html
+
 st.title("System to Detect Personality Mood Based on EEG Signals")
 
 
@@ -14,8 +16,8 @@ Self_assesment = st.empty()
 Caregiving = st.empty()
 
 #I need to change it back to new version
-# user = "old"
-user = "new"
+user = "old"
+# user = "new"
 
 #TO-DO: 
 #Add play/stop button for the music in case the user wants to stop listening to the music
@@ -77,7 +79,7 @@ FREQ = 1
 #function for reading the file and return user's current emotion
 def read_emotion():
     current_emotion = ""
-    time.sleep(1)
+    time.sleep(4)
     number = random.randrange(1,10)
     if number < 4:
         current_emotion= "negative"
@@ -94,12 +96,6 @@ def change_frequency(container, current_emotion):
     if container == Caregiving:
         if current_emotion == "neutral":
             music_freq = FREQ/2
-            # st.markdown(f"""
-            #     <script>
-            #         myaudio = document.getElementById("audio1");
-            #         myaudio.playbackRate = {}
-            #     </script>
-            # """)
         elif current_emotion == "negative":
             music_freq = FREQ/10
     #If self-assesment
@@ -109,11 +105,19 @@ def change_frequency(container, current_emotion):
         elif current_emotion == "negative":
             music_freq = FREQ*2
 
+    html_code = f"""
+                <script> 
+                    var myaudio = window.parent.document.getElementById("audio1");
+                    myaudio.playbackRate = {music_freq}
+                </script> 
+                """
+    html(html_code)
     return music_freq
 
 def change_emoji(image, current_emotion):
     if current_emotion == "positive":
         image.image(happy_image)
+
     elif current_emotion == "neutral":
         image.image(fear_image) #this should be neutral image
     else:
@@ -126,14 +130,11 @@ def autoplay_audio(file_path: str):
         data = f.read()
         b64 = base64.b64encode(data).decode()
         md = f"""
-            <audio id='audio1' controls>
+            <audio id='audio1' controls autoplay>
                 <source src="data:audio/mp3;base64,{b64}" type="audio/mp3">
             </audio>
             """
-        st.markdown(
-            md,
-            unsafe_allow_html=True,
-        )
+        st.markdown(md, unsafe_allow_html=True)
 
 def run_the_assesment(selected):
     #change the target based on the user's selection
@@ -148,8 +149,9 @@ def run_the_assesment(selected):
         return
 
     col3, col4, col5 = st.columns([1,1,2])
+
     with col3: 
-        stop_button = st.button("Stop the assesment", key="stopp")
+        stop_button = st.button("Stop the assesment", key="stop_music")
     with col4: 
         if st.button("Change music"):
             music = st.file_uploader("Upload your audio file")
@@ -173,18 +175,13 @@ def run_the_assesment(selected):
         if stop_button:
             st.session_state.keep_playing = False
             html_code = """
-                <p> Music is not playing </p>
                 <script> 
-                    var myaudio = document.getElementsByTagName("audio")[0];
-                   
-                     myaudio.pause();
-                      myaudio.currentTime = 0;  // Reset to beginning if you want
+                    var myaudio = window.parent.document.getElementById("audio1");
+                    myaudio.pause();
+                    myaudio.currentTime = 0;  // Reset to beginning if you want
                 </script> 
                 """
-            components.html(
-
-                html_code, height=200
-            )
+            html(html_code)
 
     container.empty()
 
