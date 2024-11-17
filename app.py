@@ -8,6 +8,16 @@ import streamlit.components.v1 as components
 from streamlit.components.v1 import html
 import os
 
+from serial.tools import list_ports
+
+def get_available_ports():
+    ports = list_ports.comports()
+    return [port.device for port in ports]
+
+ports = get_available_ports()
+st.write("Available Serial Ports:", ports)
+
+
 # Import the main function from main.py
 from EmotionDetectionPipeline import main
 
@@ -136,6 +146,7 @@ def run_the_assesment(selected):
     progress_bar = st.empty()
     text = st.empty() #initialize text container
     image = st.empty() #image container
+    col6, col7 = st.columns(2)
 
     #Loop until the user wants to stop the music
     while st.session_state.keep_playing == True:
@@ -144,13 +155,11 @@ def run_the_assesment(selected):
             label = main.main()
 
         current_emotion = read_emotion(label)
-        col6, col7 = st.columns(2)
 
         with col6:
             change_emoji(image, current_emotion)
         with col7: 
-            print('ds')
-            # text.subheader(f"{target} current emotion is {current_emotion}")
+            text.subheader(f"{target} current emotion is {current_emotion}")
         change_frequency(container, current_emotion)
 
         if stop_button:
