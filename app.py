@@ -104,9 +104,10 @@ def change_emoji(image, current_emotion):
 
     elif current_emotion == "neutral":
         image.image(neutral_image) #this should be neutral image
-    else:
+    elif current_emotion == "negative":
         image.image(anger_image)
-
+    else:
+        st.write("something went wrong please try agiain")
     return image
 
 def autoplay_audio(file_path: str):
