@@ -10,12 +10,13 @@ import os
 
 from serial.tools import list_ports
 
-def get_available_ports():
-    ports = list_ports.comports()
-    return [port.device for port in ports]
+##get available ports
+# def get_available_ports():
+#     ports = list_ports.comports()
+#     return [port.device for port in ports]
 
-ports = get_available_ports()
-st.write("Available Serial Ports:", ports)
+# ports = get_available_ports()
+# st.write("Available Serial Ports:", ports)
 
 
 # Import the main function from main.py
