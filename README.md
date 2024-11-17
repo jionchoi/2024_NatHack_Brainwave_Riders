@@ -75,7 +75,7 @@ The repository contains three primary components:
 ## **Future Directions**
 - Enhance music generation by incorporating large scale music generation models such as MusicGen, or providing access to Streaming platform such as Spotify
 - Expand transfer learning capabilities to improve generalization across diverse user populations.
-- Incorporate additional EEG devices for broader compatibility.
+- Incorporate additional EEG devices for broader compatibility; including economical single-channel EEG headsets.
 
 ---
 
