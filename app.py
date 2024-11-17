@@ -9,7 +9,7 @@ from streamlit.components.v1 import html
 import os
 
 # Import the main function from main.py
-from EmotionDetectionPipeline.main import main
+from EmotionDetectionPipeline import main
 
 st.title("System to Detect Personality Mood Based on EEG Signals")
 
@@ -52,27 +52,16 @@ FREQ = 1
 st.session_state.running_assesment = False
 
 #function for reading the file and return user's current emotion
-def read_emotion():
-    #create progress bar
-    label = main()
-
-    #pop up text to show the user that we got the emotion data
-
+def read_emotion(label):
     if label == 0:
-        st.write(label)
         return "negative"
     elif label == 1:
-        st.write(label)
         return "neutral"
     elif label == 2:
-        st.write(label)
         return "positive"
-    else:
-        st.write("Something went wrong. Check your conenction")
+    # else:
+        # st.write("Something went wrong. Check your conenction")
     
-    
-    
-
 def change_frequency(container, current_emotion):
     music_freq = 1
 
@@ -106,8 +95,8 @@ def change_emoji(image, current_emotion):
         image.image(neutral_image) #this should be neutral image
     elif current_emotion == "negative":
         image.image(anger_image)
-    else:
-        st.write("something went wrong please try agiain")
+    # else:
+    #     st.write("something went wrong please try agiain")
     return image
 
 def autoplay_audio(file_path: str):
@@ -115,7 +104,7 @@ def autoplay_audio(file_path: str):
         data = f.read()
         b64 = base64.b64encode(data).decode()
         md = f"""
-            <audio id='audio1' controls autoplay>
+            <audio id='audio1' controls>
                 <source src="data:audio/mp3;base64,{b64}" type="audio/mp3">
             </audio>
             """
@@ -135,7 +124,6 @@ def run_the_assesment(selected):
         st.warning("Please select one of the options", icon="⚠️")
         return
 
-
     with col4: 
         stop_button = st.button("Stop the assesment", key="stop_music")
     with col5: 
@@ -145,19 +133,24 @@ def run_the_assesment(selected):
     #I will use Javascript audio tag since it allows us to play/stop the music and change the speed of the music
     autoplay_audio(neutral_music) #we shuold allow the user to pick whatever music they want to play
     
+    progress_bar = st.empty()
     text = st.empty() #initialize text container
     image = st.empty() #image container
 
     #Loop until the user wants to stop the music
     while st.session_state.keep_playing == True:
-        st.write("emotion updated")
-        current_emotion = read_emotion()
-        print("emotion updated")
+
+        with progress_bar, st.spinner("Collecting user's emotion data"):
+            label = main.main()
+
+        current_emotion = read_emotion(label)
         col6, col7 = st.columns(2)
+
         with col6:
             change_emoji(image, current_emotion)
         with col7: 
-            text.subheader(f"{target} current emotion is {current_emotion}")
+            print('ds')
+            # text.subheader(f"{target} current emotion is {current_emotion}")
         change_frequency(container, current_emotion)
 
         if stop_button:
@@ -167,15 +160,16 @@ def run_the_assesment(selected):
                 <script> 
                     var myaudio = window.parent.document.getElementById("audio1");
                     myaudio.pause();
-                   // myaudio.currentTime = 0;  // Reset to beginning if you want
+                // myaudio.currentTime = 0;  // Reset to beginning if you want
                 </script> 
                 """
             html(html_code)
 
+
     container.empty()
     
-#Initialize the user's currenet emotion
-current_emotion = read_emotion()
+# #Initialize the user's currenet emotion
+# current_emotion = read_emotion()
 
 col6, col8 = st.columns([5, 1])
 

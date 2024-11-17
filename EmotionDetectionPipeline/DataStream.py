@@ -56,8 +56,8 @@ def collect_eeg_data(
     sampling_rate = board.get_sampling_rate(board_id)
     df = process_eeg_data(eeg_data, sampling_rate)
 
-    # Save processed data to CSV
-    df.to_csv(save_path, index=False)
-    print(f"EEG data saved to {save_path}")
+    # # Save processed data to CSV
+    # df.to_csv(save_path, index=False)
+    # print(f"EEG data saved to {save_path}")
 
     return df

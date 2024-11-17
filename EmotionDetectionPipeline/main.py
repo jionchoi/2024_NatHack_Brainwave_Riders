@@ -28,7 +28,7 @@ def main():
         # Load best model
         print("Loading the best model...")
         try:
-            with open('model/best_model', 'rb') as f:
+            with open('./EmotionDetectionPipeline/model/best_model', 'rb') as f:
                 rf = pickle.load(f)
         except FileNotFoundError:
             raise RuntimeError("Model loading failed. File 'model/best_model' not found.")
@@ -39,9 +39,10 @@ def main():
         # Predict using the model
         print("Making predictions...")
         predicted_labels = rf.predict(np.squeeze(preprocessed_data))
-
+        print("predicted labels:", predicted_labels)
         # Majority voting
         label_counts = Counter(predicted_labels)
+        
         most_common_label, count = label_counts.most_common(1)[0]
 
         # Output the predicted label
