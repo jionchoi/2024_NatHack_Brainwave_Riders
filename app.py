@@ -53,18 +53,25 @@ st.session_state.running_assesment = False
 
 #function for reading the file and return user's current emotion
 def read_emotion():
-
+    #create progress bar
     label = main()
-    time.sleep(5) #time interval: every 5 seconds
+
+    #pop up text to show the user that we got the emotion data
 
     if label == 0:
+        st.write(label)
         return "negative"
     elif label == 1:
+        st.write(label)
         return "neutral"
     elif label == 2:
+        st.write(label)
         return "positive"
     else:
-        return "neutral"
+        st.write("Something went wrong. Check your conenction")
+    
+    
+    
 
 def change_frequency(container, current_emotion):
     music_freq = 1
@@ -112,9 +119,6 @@ def autoplay_audio(file_path: str):
             </audio>
             """
         st.markdown(md, unsafe_allow_html=True)
-
-def donothing():
-    print()
 
 col3, col4, col5, col6 = st.columns([1,1,1,1])
 
