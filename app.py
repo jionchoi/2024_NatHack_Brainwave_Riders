@@ -150,11 +150,13 @@ def run_the_assesment(selected):
     #Loop until the user wants to stop the music
     while st.session_state.keep_playing == True:
         current_emotion = read_emotion()
+        st.write("emotion updated")
+        print("emotion updated")
         col6, col7 = st.columns(2)
         with col6:
             change_emoji(image, current_emotion)
         with col7: 
-            text.subheader(target + " current emotion is " + current_emotion)
+            text.subheader(f"{target} current emotion is {current_emotion}")
         change_frequency(container, current_emotion)
 
         if stop_button:
