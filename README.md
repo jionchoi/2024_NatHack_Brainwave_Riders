@@ -28,7 +28,8 @@ The repository contains three primary components:
 - **Data Sources**: 
   - Open EEG dataset: [Feeling Emotions](https://www.kaggle.com/datasets/birdy654/eeg-brainwave-dataset-feeling-emotions)  
   - Onsite-collected data using Muse 2 [EEG_rawData.zip].  
-- **Results**: Random Forest demonstrated the best performance with limited data samples, excelling in both cross-validation and transfer learning to novel subjects. The trained model is saved for deployment.
+- **Results**: Random Forest demonstrated the best performance with limited data samples, excelling in both cross-validation and transfer learning to novel subjects. The trained model is saved for deployment. ![untitled](https://github.com/user-attachments/assets/84a05653-c513-445b-9125-915445f024d0)
+
 
 ---
 
