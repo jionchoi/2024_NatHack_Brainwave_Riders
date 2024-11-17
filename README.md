@@ -3,7 +3,7 @@
 **Bridge the Silence: an EEG-Based Emotional Assessment and Music Generation Platform**
 
 To explore EmoCare and experience the platform's capabilities, visit our Streamlit app:
-👉 [EmoNeuro]([http://brainwaveriders.streamlit.app](https://emoneuro.streamlit.app))
+👉 [EmoNeuro]((https://emoneuro.streamlit.app)
 <img width="636" alt="Icon" src="https://github.com/user-attachments/assets/f6e5995e-ec9b-4ea6-8851-c739b9d122ef">
 
 
@@ -84,4 +84,4 @@ The repository contains three primary components:
 Developed by **Team Brainwave Riders** during natHACKS 2024.  
 
 To access our user friendly interface, please refer to:
-http://brainwaveriders.streamlit.app
+(https://emoneuro.streamlit.app)
