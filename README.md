@@ -81,7 +81,7 @@ The repository contains three primary components:
 ---
 
 ## **Contributors**
-Developed by **Team Brainwave Riders** during natHACKS 2024.  (Submission on [**Devpost**]( https://devpost.com/software/brainwave-riders?ref_content=contribution-prompt&ref_feature=engagement&ref_medium=email&utm_campaign=contribution-prompt&utm_content=contribution_reminder&utm_medium=email&utm_source=transactional#app-team )
+Developed by **Team Brainwave Riders** during natHACKS 2024.  (Submission on [**Devpost**]( https://devpost.com/software/brainwave-riders?ref_content=contribution-prompt&ref_feature=engagement&ref_medium=email&utm_campaign=contribution-prompt&utm_content=contribution_reminder&utm_medium=email&utm_source=transactional#app-team ))
 
 To access our user friendly interface, please refer to:
 (https://emoneuro.streamlit.app)
